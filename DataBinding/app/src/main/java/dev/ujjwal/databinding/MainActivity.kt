@@ -13,7 +13,9 @@ class MainActivity : AppCompatActivity() {
         val activityMainBinding: ActivityMainBinding =
             DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        activityMainBinding.tvName.text = "Ujjwal Maity"
-        activityMainBinding.tvEmail.text = "ujjwalmaity98@gmail.com"
+//        activityMainBinding.tvName.text = "Ujjwal Maity"
+//        activityMainBinding.tvEmail.text = "ujjwalmaity98@gmail.com"
+
+        activityMainBinding.contact = Contact("Ujjwal Maity", "ujjwalmaity98@gmail.com")
     }
 }
