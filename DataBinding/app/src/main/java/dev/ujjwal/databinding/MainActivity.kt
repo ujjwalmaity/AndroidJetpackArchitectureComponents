@@ -17,5 +17,7 @@ class MainActivity : AppCompatActivity() {
 //        activityMainBinding.tvEmail.text = "ujjwalmaity98@gmail.com"
 
         activityMainBinding.contact = Contact("Ujjwal Maity", "ujjwalmaity98@gmail.com")
+
+        activityMainBinding.handler = EventHandler(this)
     }
 }
