@@ -16,13 +16,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val data = MainActivityDataGenerator()
+//        val data = MainActivityViewModel()
 //        val randomNumber = data.getNumber()
 
-        val model = ViewModelProviders.of(this).get(MainActivityDataGenerator::class.java)
+        val model = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
         val randomNumber = model.getNumber()
 
         Log.i(TAG, "Set number")
-        textView.text = randomNumber
+        textView.text = randomNumber.value
     }
 }
