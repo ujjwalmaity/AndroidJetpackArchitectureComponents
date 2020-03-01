@@ -16,8 +16,10 @@ class MainActivity : AppCompatActivity() {
 //        activityMainBinding.tvName.text = "Ujjwal Maity"
 //        activityMainBinding.tvEmail.text = "ujjwalmaity98@gmail.com"
 
-        activityMainBinding.contact = Contact("Ujjwal Maity", "ujjwalmaity98@gmail.com")
+        activityMainBinding.contact = Contact("Captain Marvel", "caption@gmail.com")
 
         activityMainBinding.handler = EventHandler(this)
+
+        activityMainBinding.imageUrl = "https://i.redd.it/lhw4vp5yoy121.jpg"
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
@@ -12,6 +13,10 @@
         <variable
             name="handler"
             type="dev.ujjwal.databinding.EventHandler" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <LinearLayout
@@ -20,6 +25,14 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="5dp">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:padding="5dp"
+            android:src="@mipmap/ic_launcher"
+            app:profileImage="@{imageUrl}" />
 
         <TextView
             android:id="@+id/tv_name"
