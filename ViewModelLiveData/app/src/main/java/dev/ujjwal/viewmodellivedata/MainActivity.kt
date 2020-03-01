@@ -3,6 +3,7 @@ package dev.ujjwal.viewmodellivedata
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,8 +16,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val data = MainActivityDataGenerator()
-        val randomNumber = data.getNumber()
+//        val data = MainActivityDataGenerator()
+//        val randomNumber = data.getNumber()
+
+        val model = ViewModelProviders.of(this).get(MainActivityDataGenerator::class.java)
+        val randomNumber = model.getNumber()
 
         Log.i(TAG, "Set number")
         textView.text = randomNumber
