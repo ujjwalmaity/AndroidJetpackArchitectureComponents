@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_shop.*
+import java.util.*
 
 class ShopFragment : Fragment() {
 
@@ -23,7 +24,12 @@ class ShopFragment : Fragment() {
 
         btn_aboutUs.setOnClickListener {
             //Navigation.findNavController(it).navigate(R.id.about_destination)
-            Navigation.findNavController(it).navigate(R.id.next_action)
+
+            //Navigation.findNavController(it).navigate(R.id.next_action)
+
+            val nextAction = ShopFragmentDirections.nextAction()
+            nextAction.productCount = Random().nextInt(200)
+            Navigation.findNavController(it).navigate(nextAction)
         }
     }
 }
