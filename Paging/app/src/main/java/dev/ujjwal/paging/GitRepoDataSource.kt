@@ -16,8 +16,8 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
             override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
                 if (response.isSuccessful) {
-                    val gitRepoResponse = response.body()
-                    val gitRepo = gitRepoResponse?.items
+                    val gitRepoResponse = response.body()!!
+                    val gitRepo = gitRepoResponse.items
 
                     gitRepo?.let {
                         callback.onResult(gitRepo, null, FIRST_PAGE + 1)
@@ -29,7 +29,7 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, GitRepo>) {
         val gitRepoService = GitRepoServiceBuilder.buildService(GitRepoService::class.java)
-        val response = gitRepoService.getRepositories(FIRST_PAGE, PAGE_SIZE, TOPIC)
+        val response = gitRepoService.getRepositories(params.key, PAGE_SIZE, TOPIC)
 
         response.enqueue(object : Callback<GitRepoResponse> {
             override fun onFailure(call: Call<GitRepoResponse>, t: Throwable) {
@@ -37,10 +37,10 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
             override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
                 if (response.isSuccessful) {
-                    val gitRepoResponse = response.body()
-                    val gitRepo = gitRepoResponse?.items
+                    val gitRepoResponse = response.body()!!
+                    val gitRepo = gitRepoResponse.items
 
-                    val key = if (gitRepoResponse!!.totalCount > params.key) params.key + 1 else 0
+                    val key = if (gitRepoResponse.totalCount > params.key) params.key + 1 else gitRepoResponse.totalCount
 
                     gitRepo?.let {
                         callback.onResult(gitRepo, key)
@@ -52,7 +52,7 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, GitRepo>) {
         val gitRepoService = GitRepoServiceBuilder.buildService(GitRepoService::class.java)
-        val response = gitRepoService.getRepositories(FIRST_PAGE, PAGE_SIZE, TOPIC)
+        val response = gitRepoService.getRepositories(params.key, PAGE_SIZE, TOPIC)
 
         response.enqueue(object : Callback<GitRepoResponse> {
             override fun onFailure(call: Call<GitRepoResponse>, t: Throwable) {
@@ -60,8 +60,8 @@ class GitRepoDataSource : PageKeyedDataSource<Int, GitRepo>() {
 
             override fun onResponse(call: Call<GitRepoResponse>, response: Response<GitRepoResponse>) {
                 if (response.isSuccessful) {
-                    val gitRepoResponse = response.body()
-                    val gitRepo = gitRepoResponse?.items
+                    val gitRepoResponse = response.body()!!
+                    val gitRepo = gitRepoResponse.items
 
                     val key = if (params.key > 1) params.key - 1 else 0
 
