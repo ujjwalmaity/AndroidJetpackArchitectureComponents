@@ -9,9 +9,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class NoteListAdapter(private val context: Context) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
+class NoteListAdapter(private val context: Context, private val onDeleteClickListener: OnDeleteClickListener) : RecyclerView.Adapter<NoteListAdapter.NoteViewHolder>() {
 
     private var noteList: List<Note> = mutableListOf()
+
+    interface OnDeleteClickListener {
+        fun onDeleteClickListener(myNote: Note)
+    }
 
     fun setNotes(notes: List<Note>) {
         noteList = notes
@@ -49,6 +53,7 @@ class NoteListAdapter(private val context: Context) : RecyclerView.Adapter<NoteL
             }
 
             itemView.ivDelete.setOnClickListener {
+                onDeleteClickListener.onDeleteClickListener(noteList[pos])
             }
         }
     }

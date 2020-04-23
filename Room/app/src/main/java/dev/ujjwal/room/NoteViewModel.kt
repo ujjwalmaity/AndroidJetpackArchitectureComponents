@@ -24,6 +24,10 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         UpdateAsyncTask(noteDao).execute(note)
     }
 
+    fun delete(note: Note) {
+        DeleteAsyncTask(noteDao).execute(note)
+    }
+
     companion object {
         private class InsertAsyncTask(private val mNoteDao: NoteDao) : AsyncTask<Note, Void, Void>() {
             override fun doInBackground(vararg notes: Note): Void? {
@@ -35,6 +39,13 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         private class UpdateAsyncTask(private val mNoteDao: NoteDao) : AsyncTask<Note, Void, Void>() {
             override fun doInBackground(vararg notes: Note): Void? {
                 mNoteDao.update(notes[0])
+                return null
+            }
+        }
+
+        private class DeleteAsyncTask(private val mNoteDao: NoteDao) : AsyncTask<Note, Void, Void>() {
+            override fun doInBackground(vararg notes: Note): Void? {
+                mNoteDao.delete(notes[0])
                 return null
             }
         }

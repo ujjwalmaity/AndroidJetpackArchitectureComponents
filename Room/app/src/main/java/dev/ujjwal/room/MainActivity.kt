@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NoteListAdapter.OnDeleteClickListener {
 
     private lateinit var noteViewModel: NoteViewModel
 
@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE)
         }
 
-        val noteListAdapter = NoteListAdapter(this)
+        val noteListAdapter = NoteListAdapter(this, this)
         recyclerview.apply {
             adapter = noteListAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -62,5 +62,9 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, R.string.not_saved, Toast.LENGTH_LONG).show()
         }
+    }
+
+    override fun onDeleteClickListener(myNote: Note) {
+        noteViewModel.delete(myNote)
     }
 }
