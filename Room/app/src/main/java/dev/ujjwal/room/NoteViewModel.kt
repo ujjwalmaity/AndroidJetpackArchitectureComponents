@@ -20,10 +20,21 @@ class NoteViewModel(application: Application) : AndroidViewModel(application) {
         InsertAsyncTask(noteDao).execute(note)
     }
 
+    fun update(note: Note) {
+        UpdateAsyncTask(noteDao).execute(note)
+    }
+
     companion object {
         private class InsertAsyncTask(private val mNoteDao: NoteDao) : AsyncTask<Note, Void, Void>() {
             override fun doInBackground(vararg notes: Note): Void? {
                 mNoteDao.insert(notes[0])
+                return null
+            }
+        }
+
+        private class UpdateAsyncTask(private val mNoteDao: NoteDao) : AsyncTask<Note, Void, Void>() {
+            override fun doInBackground(vararg notes: Note): Void? {
+                mNoteDao.update(notes[0])
                 return null
             }
         }

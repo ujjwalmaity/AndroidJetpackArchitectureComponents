@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import kotlinx.android.synthetic.main.activity_new.*
 
-class NewActivity : AppCompatActivity() {
+class NewNoteActivity : AppCompatActivity() {
 
     companion object {
         const val NOTE_ADDED = "new_note"

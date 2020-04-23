@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val NEW_NOTE_ACTIVITY_REQUEST_CODE = 1
+        const val UPDATE_NOTE_ACTIVITY_REQUEST_CODE = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener {
-            val intent = Intent(this, NewActivity::class.java)
+            val intent = Intent(this, NewNoteActivity::class.java)
             startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE)
         }
 
@@ -48,9 +49,16 @@ class MainActivity : AppCompatActivity() {
 
         if (requestCode == NEW_NOTE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             val noteId = UUID.randomUUID().toString()
-            val note = Note(noteId, data!!.getStringExtra(NewActivity.NOTE_ADDED)!!)
+            val note = Note(noteId, data!!.getStringExtra(NewNoteActivity.NOTE_ADDED)!!)
             noteViewModel.insert(note)
             Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show()
+        } else if (requestCode == UPDATE_NOTE_ACTIVITY_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            val note = Note(
+                data!!.getStringExtra(EditNoteActivity.NOTE_ID)!!,
+                data.getStringExtra(EditNoteActivity.UPDATED_NOTE)!!
+            )
+            noteViewModel.update(note)
+            Toast.makeText(this, R.string.updated, Toast.LENGTH_LONG).show()
         } else {
             Toast.makeText(this, R.string.not_saved, Toast.LENGTH_LONG).show()
         }

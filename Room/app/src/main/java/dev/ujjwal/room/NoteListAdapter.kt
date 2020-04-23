@@ -1,6 +1,8 @@
 package dev.ujjwal.room
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,14 +25,31 @@ class NoteListAdapter(private val context: Context) : RecyclerView.Adapter<NoteL
 
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val note = noteList[position]
-        holder.setData(note.note)
+        holder.setData(note.note, position)
+        holder.setListeners()
     }
 
     override fun getItemCount(): Int = noteList.size
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun setData(note: String) {
+
+        var pos: Int = 0
+
+        fun setData(note: String, position: Int) {
             itemView.txvNote.text = note
+            pos = position
+        }
+
+        fun setListeners() {
+            itemView.setOnClickListener {
+                val intent = Intent(context, EditNoteActivity::class.java)
+                intent.putExtra("note_id", noteList[pos].id)
+                intent.putExtra("note", noteList[pos].note)
+                (context as Activity).startActivityForResult(intent, MainActivity.UPDATE_NOTE_ACTIVITY_REQUEST_CODE)
+            }
+
+            itemView.ivDelete.setOnClickListener {
+            }
         }
     }
 }
