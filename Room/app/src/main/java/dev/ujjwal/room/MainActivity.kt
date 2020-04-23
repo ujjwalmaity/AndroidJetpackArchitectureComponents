@@ -6,7 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -27,7 +29,18 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, NEW_NOTE_ACTIVITY_REQUEST_CODE)
         }
 
+        val noteListAdapter = NoteListAdapter(this)
+        recyclerview.apply {
+            adapter = noteListAdapter
+            layoutManager = LinearLayoutManager(this@MainActivity)
+        }
+
         noteViewModel = ViewModelProviders.of(this).get(NoteViewModel::class.java)
+        noteViewModel.allNotes.observe(this, androidx.lifecycle.Observer { notes ->
+            notes?.let {
+                noteListAdapter.setNotes(it)
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

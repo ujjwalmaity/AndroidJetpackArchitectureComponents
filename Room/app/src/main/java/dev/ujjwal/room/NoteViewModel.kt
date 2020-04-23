@@ -3,14 +3,17 @@ package dev.ujjwal.room
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 
 class NoteViewModel(application: Application) : AndroidViewModel(application) {
 
     private val noteDao: NoteDao
+    internal val allNotes: LiveData<List<Note>>
 
     init {
         val noteDB = NoteRoomDatabase.getDatabase(application)
         noteDao = noteDB!!.noteDao()
+        allNotes = noteDao.allNotes
     }
 
     fun insert(note: Note) {
