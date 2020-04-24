@@ -11,3 +11,5 @@
 [5. Paging](https://github.com/ujjwalmaity/AndroidJetpackArchitectureComponents/tree/master/Paging)
 
 [6. Room](https://github.com/ujjwalmaity/AndroidJetpackArchitectureComponents/tree/master/Room)
+
+[7. Work Manager](https://github.com/ujjwalmaity/AndroidJetpackArchitectureComponents/tree/master/WorkManager)
