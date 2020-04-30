@@ -5,16 +5,28 @@ import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 
 class SendWorker(context: Context, parameters: WorkerParameters) : Worker(context, parameters) {
 
+    companion object {
+        const val WORK_RESULT = "work_result"
+    }
+
     override fun doWork(): Result {
 
-        showNotification("Work Manager", "Message Send")
+        val data = inputData
+        val dataString = data.getString(MainActivity.MESSAGE_STATUS)
 
-        return Result.success()
+        showNotification("Work Manager", dataString ?: "Message Send")
+
+        val outputData = Data.Builder()
+            .putString(WORK_RESULT, "Task Finished")
+            .build()
+
+        return Result.success(outputData)
     }
 
     private fun showNotification(task: String, desc: String) {
